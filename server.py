@@ -16,36 +16,13 @@ async def ping_webview_takeout() -> str:
 
 @mcp.tool()
 async def create_and_serve_webview(webview_content: str) -> str:
-    """Create and serve a webview with the given content (JSX or raw HTML)"""
+    """Create and serve a webview with the given content in raw HTML"""
     if is_raw_html(webview_content):
         html = webview_content
     else:
-        html = react_jsx_to_html(webview_content)
+        return "Webview content must be raw HTML"
     serve_html_in_webview(html)
     return "Webview created and served!"
-
-
-def react_jsx_to_html(jsx_code: str) -> str:
-    return f"""
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>React Webview</title>
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="text/babel">
-{jsx_code}
-      ReactDOM.createRoot(document.getElementById('root')).render(<MemoryGame />);
-    </script>
-  </body>
-</html>
-"""
 
 
 def serve_html_in_webview(html: str, port: int = 65535):
