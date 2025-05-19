@@ -1,0 +1,14 @@
+{
+    "mcpServers": {
+      "webview-takeout": {
+        "command": "uv",
+        "args": [
+          "--directory",
+          "/Users/junekim/Documents/webview-takeout",
+          "run",
+          "server.py"
+        ]
+      }
+    }
+  }
+  
